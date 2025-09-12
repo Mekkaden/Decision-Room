@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Decision Room</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="container">
+   <header class="app-header">
+    <h1>The Decision Room</h1>
+
+    <p>Halt, traveller, at this fork in your journey. Two futures await a single choice, and the shadow of 'what if' looms long. This is a place of reckoning. Here, you shall not find prophecy, but clarity. Detail your options, give measure to your potential regrets, and the wisest course—the one your own spirit already leans toward—shall be made plain.</p>
+
+    <div class="subject-container">
+        <label for="decision-subject">What are you deciding on?</label>
+        <input type="text" id="decision-subject" placeholder="e.g., Which job offer to accept?">
+    </div>
+</header>
+
+    <div class="choices-container">
+        <section class="choice" id="choice-a">
+            <h2>Choice A</h2>
+            <input type="text" id="choice-a-name" placeholder="Enter name for Choice A">
+
+            <label for="choice-a-pros">Pros</label>
+            <textarea id="choice-a-pros" rows="5" placeholder="List the good things..."></textarea>
+
+            <label for="choice-a-cons">Cons</label>
+            <textarea id="choice-a-cons" rows="5" placeholder="List the bad things..."></textarea>
+
+            <label for="choice-a-regret">Regret Score (1-10): How much would you regret NOT choosing this?</label>
+            <input type="range" id="choice-a-regret" min="1" max="10" value="5">
+        </section>
+
+        <section class="choice" id="choice-b">
+            <h2>Choice B</h2>
+            <input type="text" id="choice-b-name" placeholder="Enter name for Choice B">
+            
+            <label for="choice-b-pros">Pros</label>
+            <textarea id="choice-b-pros" rows="5" placeholder="List the good things..."></textarea>
+
+            <label for="choice-b-cons">Cons</label>
+            <textarea id="choice-b-cons" rows="5" placeholder="List the bad things..."></textarea>
+
+            <label for="choice-b-regret">Regret Score (1-10): How much would you regret NOT choosing this?</label>
+            <input type="range" id="choice-b-regret" min="1" max="10" value="5">
+        </section>
+    </div>
+
+    <div class="controls-container">
+        <button id="magic-button">Reveal the Path</button>
+    </div>
+
+    <div id="result-display">
+        </div>
+</main>
+
+    <script src="script.js"></script>
+</body>
+</html>
