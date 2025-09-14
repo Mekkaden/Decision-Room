@@ -1,56 +1,76 @@
-// Wait until the entire HTML document is loaded and ready
 document.addEventListener('DOMContentLoaded', () => {
-    
-    // Find our key elements on the page
     const magicButton = document.getElementById('magic-button');
+    const continueButton = document.getElementById('continue-button');
     const resultDisplay = document.getElementById('result-display');
+    const backendUrl = 'http://localhost:3001/api/analyze';
 
-    // Add a 'click' event listener to the button
-    magicButton.addEventListener('click', () => {
-        
-        // --- 1. COLLECT & VALIDATE DATA ---
-        const choiceAName = document.getElementById('choice-a-name').value.trim();
-        const choiceBName = document.getElementById('choice-b-name').value.trim();
+    const steps = [
+        document.getElementById('step-1'),
+        document.getElementById('step-2'),
+        document.getElementById('step-3'),
+        document.getElementById('step-4'),
+    ];
 
-        // This is the new validation check
-        if (choiceAName === '' || choiceBName === '') {
-            resultDisplay.innerHTML = `<h3>Halt!</h3><p>You must provide a name for both choices before the path can be revealed.</p>`;
-            
-            // We get the border style directly from the element for consistency
-            const resultStyle = window.getComputedStyle(resultDisplay);
-            const originalBorder = resultStyle.borderLeft;
+    let currentStep = 0;
 
-            // Temporarily set a red border for the error
-            resultDisplay.style.borderLeft = '5px solid #ff4757'; // A fiery error red
-
-            // Optional: Revert the border color after a few seconds
-            setTimeout(() => {
-                resultDisplay.style.borderLeft = originalBorder;
-            }, 3000);
-
-            return; // IMPORTANT: This stops the function from running any further
+    continueButton.addEventListener('click', () => {
+        if (currentStep === 0) {
+            if (document.getElementById('decision-subject').value.trim() === '') {
+                alert('Please enter what you are deciding on.');
+                return;
+            }
+        }
+        if (currentStep === 1) {
+            if (document.getElementById('choice-a-name').value.trim() === '' || document.getElementById('choice-b-name').value.trim() === '') {
+                alert('Please provide a name for both choices.');
+                return;
+            }
         }
         
-        // --- 2. IF VALIDATION PASSES, CONTINUE ---
-        const regretA = parseInt(document.getElementById('choice-a-regret').value, 10);
-        const regretB = parseInt(document.getElementById('choice-b-regret').value, 10);
+        steps[currentStep].classList.add('hidden');
+        currentStep++;
 
-        // Make sure the border is the correct neon color for a valid result
-        // This is necessary because of the error state above
-        resultDisplay.style.borderLeft = `5px solid var(--neon-accent)`;
-
-        // --- 3. THE "LAW OF REGRETS" ALGORITHM ---
-        let recommendation = '';
-
-        if (regretA > regretB) {
-            recommendation = `<h3>Your Path is Clear: **${choiceAName}**</h3><p>Your regret score for not choosing this was significantly higher (${regretA} vs ${regretB}). Your gut is telling you this is the way to go.</p>`;
-        } else if (regretB > regretA) {
-            recommendation = `<h3>Your Path is Clear: **${choiceBName}**</h3><p>Your regret score for not choosing this was significantly higher (${regretB} vs ${regretA}). Your gut is telling you this is the way to go.</p>`;
-        } else {
-            recommendation = `<h3>A Perfect Tie (${regretA} vs ${regretB})</h3><p>Your regret scores are identical. This decision requires a closer look at your pros and cons. Neither choice holds a stronger pull of potential regret.</p>`;
+        if (currentStep < steps.length) {
+            steps[currentStep].classList.remove('hidden');
         }
 
-        // --- 4. DISPLAY THE RESULT ---
-        resultDisplay.innerHTML = recommendation;
+        if (currentStep === steps.length) {
+            continueButton.classList.add('hidden');
+            magicButton.classList.remove('hidden'); // This was the line with the typo
+        }
+    });
+
+    magicButton.addEventListener('click', async () => {
+        const choiceA = {
+            name: document.getElementById('choice-a-name').value.trim(),
+            pros: document.getElementById('choice-a-pros').value.trim(),
+            cons: document.getElementById('choice-a-cons').value.trim(),
+            regretScore: parseInt(document.getElementById('choice-a-regret').value, 10)
+        };
+        const choiceB = {
+            name: document.getElementById('choice-b-name').value.trim(),
+            pros: document.getElementById('choice-b-pros').value.trim(),
+            cons: document.getElementById('choice-b-cons').value.trim(),
+            regretScore: parseInt(document.getElementById('choice-b-regret').value, 10)
+        };
+
+        resultDisplay.innerHTML = `<p>Connecting to the oracle... Analyzing the paths...</p>`;
+
+        try {
+            const response = await fetch(backendUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ choiceA, choiceB }),
+            });
+
+            if (!response.ok) { throw new Error(`Server responded with status: ${response.status}`); }
+
+            const data = await response.json();
+            resultDisplay.innerHTML = data.recommendation;
+
+        } catch (error) {
+            console.error('Error fetching analysis:', error);
+            resultDisplay.innerHTML = `<h3>Connection Error</h3><p>Could not connect to the analysis server.</p>`;
+        }
     });
 });

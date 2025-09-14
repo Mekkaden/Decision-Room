@@ -1,22 +1,20 @@
 const express = require('express');
-const cors = require('cors'); //To like uk connect frontend and backend
-require('dotenv').config(); //This is required to like read the gemini api key 
-const { GoogleGenerativeAI } = require('@google/generative-ai'); //To connect with gemini model
+const cors = require('cors');
+require('dotenv').config();
+const { GoogleGenerativeAI } = require('@google/generative-ai');
 
- 
 const app = express();
 const port = 3001;
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);  //Setting up the ai to get ready to use for work
- 
-//Now middlewares
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+
 app.use(cors());
 app.use(express.json());
 
-//API 
 app.post('/api/analyze', async (req, res) => {
     try {
         const { choiceA, choiceB } = req.body;
         const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
         const prompt = `
             You are a wise and logical decision-making assistant. Your task is to analyze a user's choice based on a clear set of rules.
 
@@ -52,7 +50,6 @@ app.post('/api/analyze', async (req, res) => {
     }
 });
 
-// --- START SERVER ---
 app.listen(port, () => {
     console.log(`🧠 AI Decision Backend is running on http://localhost:${port}`);
 });

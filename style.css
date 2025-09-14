@@ -1,28 +1,24 @@
-/* --- FONT IMPORT (Same as before, they work great for this too) --- */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Lora:ital,wght@0,400;0,700;1,400&display=swap');
 
-/* --- NEW CYBERPUNK/FOLKLORE THEME --- */
 :root {
-    --background-dark: #1a102c; /* Deep violet background */
-    --container-dark: #2a1a47; /* Slightly lighter violet for the main box */
-    --text-light: #e0d8ff;     /* Off-white/lavender text for readability */
+    --background-dark: #1a102c;
+    --container-dark: #2a1a47;
+    --text-light: #e0d8ff;
     --text-heading: #ffffff;
-    --neon-accent: #ff00c1;     /* Vibrant Magenta for the cyberpunk feel */
+    --neon-accent: #ff00c1;
     --neon-accent-glow: rgba(255, 0, 193, 0.5);
     --border-color: #5a3d8c;
-    --font-serif: 'Lora', serif; /* The "Folklore" font */
-    --font-sans: 'Inter', sans-serif; /* The "Cyber" font */
+    --font-serif: 'Lora', serif;
+    --font-sans: 'Inter', sans-serif;
 }
 
 body {
-    background-color: var(--background-dark); /* Fallback color */
-    background-image: url(images/wallhaven-po39w9.png); /* THIS IS THE NEW LINE! */
-    background-size: cover; /* This makes the image cover the entire background */
-    background-position: center center; /* This centers the image */
-    background-attachment: fixed; /* Keeps the image fixed while content scrolls */
-    background-repeat: no-repeat; /* Prevents the image from repeating */
-
-    /* Keep your existing font and text styles */
+    background-color: var(--background-dark);
+    background-image: url(images/wallhaven-po39w9.png);
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
     font-family: var(--font-sans);
     color: var(--text-light);
     line-height: 1.6;
@@ -30,24 +26,18 @@ body {
     padding: 2rem;
 }
 
-/* --- Main App Container with Neon Glow --- */
-/* --- Main App Container with Frosted Glass Effect --- */
 .container {
     max-width: 900px;
     margin: 0 auto;
-    
-    /* --- THE FROSTED GLASS CODE --- */
-    background: rgba(42, 26, 71, 0.25); /* Semi-transparent dark purple */
-    backdrop-filter: blur(12px);         /* The magic blur! */
-    -webkit-backdrop-filter: blur(12px); /* For Safari browser support */
-    
+    background: rgba(42, 26, 71, 0.25);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     padding: 2rem 3rem;
-    border-radius: 16px; /* A slightly softer radius */
-    border: 1px solid rgba(255, 255, 255, 0.15); /* A subtle, light border */
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37); /* A more subtle shadow for depth */
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }
 
-/* --- Header Section --- */
 .app-header {
     text-align: center;
     margin-bottom: 2.5rem;
@@ -59,7 +49,6 @@ body {
     font-family: var(--font-serif);
     font-size: 2.8rem;
     color: var(--text-heading);
-    /* Glowing text for the "folklore" magic feel */
     text-shadow: 0 0 8px var(--neon-accent-glow);
     margin: 0;
 }
@@ -74,7 +63,6 @@ body {
     width: 60%;
 }
 
-/* --- Choices Layout (The 2 Columns) --- */
 .choices-container {
     display: flex;
     gap: 3rem;
@@ -96,7 +84,6 @@ body {
     text-shadow: 0 0 5px var(--neon-accent-glow);
 }
 
-/* --- Styling The Form Elements (Cyberpunk Edition) --- */
 label {
     margin-top: 1rem;
     margin-bottom: 0.5rem;
@@ -129,7 +116,6 @@ textarea:focus {
     box-shadow: 0 0 10px var(--neon-accent-glow);
 }
 
-/* --- Controls & Result --- */
 .controls-container {
     text-align: center;
     margin: 2rem 0;
@@ -166,7 +152,6 @@ textarea:focus {
     transition: all 0.3s ease;
 }
 
-/* You requested styling for the range slider to match the theme */
 input[type="range"] {
   -webkit-appearance: none;
   appearance: none;
@@ -196,4 +181,34 @@ input[type="range"]::-moz-range-thumb {
   cursor: pointer;
   border-radius: 50%;
   box-shadow: 0 0 10px var(--neon-accent-glow);
+}
+
+.hidden {
+    display: none;
+}
+
+.step-label {
+    display: block;
+    text-align: center;
+    font-size: 1.25rem;
+    color: var(--text-light);
+    margin-bottom: 1.5rem;
+    font-family: var(--font-serif);
+}
+
+#continue-button {
+    background-color: #f0f0f0;
+    color: #333;
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    font-weight: 700;
+    padding: 0.75rem 2rem;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+#continue-button:hover {
+    background-color: #ffffff;
 }
