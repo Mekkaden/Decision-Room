@@ -1,4 +1,4 @@
-// document.addEventListener('DOMContentLoaded', () => { This waits until the HTML page finishes loading before running the script.
+document.addEventListener('DOMContentLoaded', () => { This waits until the HTML page finishes loading before running the script.
 
 // Why? Because if the script runs too early, getElementById will fail since elements don’t exist yet.
 
