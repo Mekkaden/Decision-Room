@@ -1,9 +1,12 @@
-document.addEventListener('DOMContentLoaded', () => {
+// document.addEventListener('DOMContentLoaded', () => { This waits until the HTML page finishes loading before running the script.
+
+// Why? Because if the script runs too early, getElementById will fail since elements don’t exist yet.
+
+
     const magicButton = document.getElementById('magic-button');
     const continueButton = document.getElementById('continue-button');
     const resultDisplay = document.getElementById('result-display');
-    const backendUrl = 'http://localhost:3001/api/analyze';
-
+const backendUrl = 'https://decision-room-backend.onrender.com/api/analyze';
     const steps = [
         document.getElementById('step-1'),
         document.getElementById('step-2'),
