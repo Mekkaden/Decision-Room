@@ -1,12 +1,9 @@
-document.addEventListener('DOMContentLoaded', () => { This waits until the HTML page finishes loading before running the script.
-
-// Why? Because if the script runs too early, getElementById will fail since elements don’t exist yet.
-
-
+document.addEventListener('DOMContentLoaded', () => {
     const magicButton = document.getElementById('magic-button');
     const continueButton = document.getElementById('continue-button');
     const resultDisplay = document.getElementById('result-display');
-const backendUrl = 'https://decision-room-backend.onrender.com/api/analyze';
+    const backendUrl = 'https://decision-room-backend.onrender.com/api/analyze';
+
     const steps = [
         document.getElementById('step-1'),
         document.getElementById('step-2'),
@@ -39,7 +36,7 @@ const backendUrl = 'https://decision-room-backend.onrender.com/api/analyze';
 
         if (currentStep === steps.length) {
             continueButton.classList.add('hidden');
-            magicButton.classList.remove('hidden'); // This was the line with the typo
+            magicButton.classList.remove('hidden');
         }
     });
 
@@ -73,7 +70,7 @@ const backendUrl = 'https://decision-room-backend.onrender.com/api/analyze';
 
         } catch (error) {
             console.error('Error fetching analysis:', error);
-            resultDisplay.innerHTML = `<h3>Connection Error</h3><p>Could not connect to the analysis server.</p>`;
+            resultDisplay.innerHTML = `<h3>Connection Error</h3><p>Could not connect to the analysis server. Please make sure your local backend is running and try again.</p>`;
         }
     });
 });
