@@ -39,4 +39,4 @@ In Phase 2, this numerical score is combined with the pros and cons text, which 
 * **Database (Planned):** MongoDB
 
 
-Wanna Try : https://twochoices.netlify.app/
+Website : https://twochoices.netlify.app/
