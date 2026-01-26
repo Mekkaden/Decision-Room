@@ -37,3 +37,6 @@ In Phase 2, this numerical score is combined with the pros and cons text, which 
 * **Backend:** Node.js, Express.js
 * **AI:** Google Gemini API
 * **Database (Planned):** MongoDB
+
+
+Wanna Try : https://twochoices.netlify.app/
